@@ -1,4 +1,4 @@
-Gorka Cidoncha Marquiegui
+Gorka Cidoncha Marquiegui.
 Instalar gCloud y kubectl.
 Tener un projecto creado con recurso necesarios para la creación de un cluster.
 Crear un cluster gke-autopilot si no se tiene uno craeado con:
