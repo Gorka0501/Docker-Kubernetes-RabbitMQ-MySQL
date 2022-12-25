@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+        app: app
+        tier: frontend
+  template:
+    metadata:
+      labels:
+        app: app
+        tier: frontend
+    spec:
+      containers:
+      - name: rabbitmq-webapp
+        image: docker.io/gorka0501/asrabbitmq:latest
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_DEFAULT_USER
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_DEFAULT_PASS
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 5000
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: app
+    tier: frontend
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 5000
+  selector:
+    app: app
+    tier: frontend

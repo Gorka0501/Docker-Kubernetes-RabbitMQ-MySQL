@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  rabbitmqServer:
+    container_name: rabbitmq
+    image: "rabbitmq:3.6-management-alpine"
+    ports:
+      - "5672:5672"
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "pass"
+    volumes:
+      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+      - rabbitnetwork
+
+  web:
+    container_name: web
+    image: docker.io/gorka0501/asrabbitmq:latest
+    ports:
+      - "5000:5000"
+    environment:
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "pass"
+    networks:
+      - rabbitnetwork
+    restart: always
+
+  
+networks:
+  rabbitnetwork:
+    driver: bridge

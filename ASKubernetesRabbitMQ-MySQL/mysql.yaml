@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    role: leader
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+        role: leader
+        tier: backend
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0
+        resources:
+          requests:
+            cpu: 5000m
+            memory: 1G
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secrets
+              key: root_password
+        
+        volumeMounts:
+        - name: mysql-pv
+          mountPath: /var/lib/mysql
+
+      volumes:
+      - name: mysql-pv
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  labels:
+    app: mysql
+    role: leader
+    tier: backend
+spec:
+  ports:
+  - port: 3306
+    name: mysql
+    targetPort: 3306
+  selector:
+    app: mysql
+    role: leader
+    tier: backend

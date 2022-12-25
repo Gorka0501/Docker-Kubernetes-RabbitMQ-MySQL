@@ -1,0 +1,20 @@
+<h1>
+    RabbitMQ1.1
+</h1>
+<form method="post">
+    <input type="text" name=msg placeholder="message" required="required"><br>
+    <button type="submit" name="submit_button" value="Send">Send</button>
+</form>
+<form method="post">
+    <button type="submit" name="submit_button" value="Recive">Recive</button>
+</form>
+<div id='info_section'>
+    {% for data in data %}
+        <p>{{ data }}</p>
+    {% endfor %}
+</div>
+<div id='info_section'>
+    {% for data in body %}
+        <p>{{ data }}</p>
+    {% endfor %}
+</div>
