@@ -1,7 +1,7 @@
 Gorka Cidoncha Marquiegui
 Instalar gCloud y kubectl.
-Tener un projecto creado con recurso necesarios para la creación de un cluster.
-Crear un cluster si no se tiene uno craeado con:
+Tener un proyecto creado con recurso necesarios para la creación de un cluster.
+Crear un cluster si no se tiene uno creado con:
 gcloud container clusters create-auto <cluster_name> --region <region>  --project=<project_ID>
 
 Descargar la carpeta, y entrar en ella.

@@ -1,5 +1,5 @@
 Gorka Cidoncha Marquiegui
-Instalar Docker con snap intall docker
+Instalar Docker con snap install docker
 Descargar la carpeta, y entrar en ella.
 Ejecutar este lista de comandos dentro de la carpeta:
 sudo docker-compose up y esperar unos segundos a que el RabbitMQ arranque.
